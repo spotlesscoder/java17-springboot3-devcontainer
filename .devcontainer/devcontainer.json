@@ -1,0 +1,43 @@
+{
+    "name": "Playground - Java 22 Spring Boot 3",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "devcontainer",
+    "workspaceFolder": "/workspaces/$[localWorkspaceFolderBasename}",
+    "shutdownAction": "stopCompose",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "17",
+            "installMaven": "true",
+            "installGradle": "false"
+        },
+
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "20"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest",
+            "moby": true
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "christian-kohler.path-intellisense",
+                "eamodio.gitlens",
+                "mongodb.mongodb-vscode",
+                "ms-azuretools.vscode-docker",
+                "SonarSource.sonarlint-vscode",
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-lombok"
+            ],
+            "settings": {
+                "editor.formatOnSave": true
+            }
+        }
+    },
+    "remoteEnv": {
+        "EDITOR": "nano"
+    },
+    "forwardPorts": [8080],
+    "postCreateCommand": ".devcontainer/postCreateCommand.sh"
+}
