@@ -1,43 +1,53 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/java
 {
-    "name": "Playground - Java 22 Spring Boot 3",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "devcontainer",
-    "workspaceFolder": "/workspaces/$[localWorkspaceFolderBasename}",
-    "shutdownAction": "stopCompose",
-    "features": {
-        "ghcr.io/devcontainers/features/java:1": {
-            "version": "17",
-            "installMaven": "true",
-            "installGradle": "false"
-        },
-
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "20"
-        },
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {
-            "version": "latest",
-            "moby": true
-        }
+  "build": {
+    "args": {
+      // Options
+      // maven and gradle wrappers are used by default, we don't need them installed globally
+      // "INSTALL_MAVEN": "true",
+      // "INSTALL_GRADLE": "false",
+      "NODE_VERSION": "20.15.0",
+      // Update the VARIANT arg to pick a Java version: 17, 19
+      // Append -bullseye or -buster to pin to an OS version.
+      // Use the -bullseye variants on local arm64/Apple Silicon.
+      "VARIANT": "17-bullseye"
     },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "christian-kohler.path-intellisense",
-                "eamodio.gitlens",
-                "mongodb.mongodb-vscode",
-                "ms-azuretools.vscode-docker",
-                "SonarSource.sonarlint-vscode",
-                "vscjava.vscode-java-pack",
-                "vscjava.vscode-lombok"
-            ],
-            "settings": {
-                "editor.formatOnSave": true
-            }
-        }
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "christian-kohler.npm-intellisense",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "firsttris.vscode-jest-runner",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "pivotal.vscode-boot-dev-pack",
+        "vscjava.vscode-java-pack"
+      ],
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "extensions.ignoreRecommendations": true,
+        "java.jdt.ls.java.home": "/docker-java-home"
+      }
+    }
+  },
+  "features": {
+    "docker-from-docker": "latest",
+    "docker-in-docker": "latest"
     },
-    "remoteEnv": {
-        "EDITOR": "nano"
-    },
-    "forwardPorts": [8080],
-    "postCreateCommand": ".devcontainer/postCreateCommand.sh"
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    9060,
+    3001,
+    9000,
+    8080
+  ],
+  "name": "Java22Springboot3Devcontainer",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "java -version",
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode"
 }
